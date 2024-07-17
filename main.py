@@ -23,6 +23,28 @@ def draw_window():
     WIN.blit(PLAYER_SHIP, (100,300)) #loads our ship onto the screen. THE ODRER IN WHICH ITS LOADED MATTERS
     pygame.display.update()
 
+def move_ship(): #function to move the ship
+    X_SHIP = 100 #X coordinate of the ship
+    Y_SHIP = 300
+    run = True
+    while run:
+        WIN.fill(WHITE)
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_w]:
+            Y_SHIP -= 1
+        if keys[pygame.K_s]:
+            Y_SHIP += 1
+        if keys[pygame.K_a]:
+            X_SHIP -= 1
+        if keys[pygame.K_d]:
+            X_SHIP += 1
+        WIN.blit(PLAYER_SHIP, (X_SHIP, Y_SHIP))
+        pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+    pygame.quit()
+
 # Starting below this comment; This is the the main loop of the game. 
 # It will run until the user closes the window, 
 # the loops constantly checks if the widow is open
@@ -36,6 +58,7 @@ def main():
                 run = False
 
         draw_window()#calls function from line 10
+        move_ship()
     pygame.quit()
 
 
