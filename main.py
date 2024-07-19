@@ -25,7 +25,7 @@ IMAGE_MISSILE_DEFAULT = pygame.image.load(os.path.join('assets', 'images', 'miss
 MISSILE_DEFAULT = pygame.transform.scale(IMAGE_MISSILE_DEFAULT, (10, 10))
 #Create sprite groups
 # projectiles_group = pygame.sprite.Group()
-
+ 
 #Creating classes
 class projectiles(object):
     def __init__(self, x, y):
@@ -37,7 +37,7 @@ class projectiles(object):
         self.rect.y = y
 
     def update(self):
-        self.rect.y -= 5  # Move the projectile up
+        self.rect.x += 5  # Move the projectile up
         if self.rect.bottom < 0:
             self.kill()  # Remove the projectile if it goes off-screen
 
