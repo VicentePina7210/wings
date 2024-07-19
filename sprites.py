@@ -27,3 +27,6 @@ class asteroid(pygame.sprite.Sprite):
         self.rect = self.image.get_rect #creates a rectangle around the image to represent the 'space' occupied (?)
         self.rect.center = (400, 300) # sets the initial position to the center of the screen
         self.speed = 2 # the speed of movement is 2, should be substantially slower than ship
+
+
+
