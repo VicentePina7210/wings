@@ -22,6 +22,7 @@ PLAYER_SHIP = pygame.transform.rotate(pygame.transform.scale(
 #assigning assests to variables
 IMAGE_MISSILE_DEFAULT = pygame.image.load(os.path.join('assets', 'images', 'missile.png'))
 
+MISSILE_DEFAULT = pygame.transform.scale(IMAGE_MISSILE_DEFAULT, (10, 10))
 #Create sprite groups
 # projectiles_group = pygame.sprite.Group()
 
@@ -30,7 +31,7 @@ class projectiles(object):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.image = IMAGE_MISSILE_DEFAULT
+        self.image = MISSILE_DEFAULT
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -86,23 +87,6 @@ def move_ship(): #function to move the ship
                 run = False
     pygame.quit()
 
-def shoot():
-    MISSILE = pygame.image.load(
-    os.path.join('assets', 'images', 'missile.png'))
-    MISSILE_SPEED = 5
-    run = True
-    while run: 
-        WIN.fill(WHITE)
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE]:
-            MISSILE
-        
-
-
-
-
-# Starting below this comment; This is the the main loop of the game. 
-# It will run until the user closes the window, 
 # def shoot():
 #     X_MISSILE = 100
 #     Y_MISSILE = 300
@@ -136,7 +120,7 @@ def main():
 
         draw_window()#calls function from line 10
         move_ship()
-        projectiles_group.update()
+
         # shoot()
     pygame.quit()
 
