@@ -86,6 +86,23 @@ def move_ship(): #function to move the ship
                 run = False
     pygame.quit()
 
+def shoot():
+    MISSILE = pygame.image.load(
+    os.path.join('assets', 'images', 'missile.png'))
+    MISSILE_SPEED = 5
+    run = True
+    while run: 
+        WIN.fill(WHITE)
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            MISSILE
+        
+
+
+
+
+# Starting below this comment; This is the the main loop of the game. 
+# It will run until the user closes the window, 
 # def shoot():
 #     X_MISSILE = 100
 #     Y_MISSILE = 300
