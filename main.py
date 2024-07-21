@@ -1,6 +1,7 @@
 #the start of the wings project
 import pygame
 import os #this helps us find the path to our assets
+from sprites import ship
 
 WIDTH, HEIGHT = 800, 600
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -12,6 +13,12 @@ SPACE_SHIP_HEIGHT = 75
 WHITE = (255, 255, 255) #RGB color code for white, used in line 18
 FPS = 60 #Frames per second, used to control the speed of the game to ensure same speed across machines
 
+#Create an instance of the ship class
+player = ship()
+
+#Create sprite group and add the player sprite to it
+all_sprites = pygame.sprite.Group()
+all_sprites.add(player)
 #Create the player
 IMAGE_PLAYER_SHIP = pygame.image.load(
     os.path.join('assets', 'images', 'ship.png'))#using this syntax and importing os, our assets can load on any OS b/c path directories may differ
@@ -54,9 +61,11 @@ projectiles_tracker = []
 #Draw onto screen
 def draw_window():
     WIN.fill(WHITE)
-    WIN.blit(PLAYER_SHIP, (100,300)) #loads our ship onto the screen. THE ODRER IN WHICH ITS LOADED MATTERS
+    #WIN.blit(PLAYER_SHIP, (100,300)) #loads our ship onto the screen. THE ODRER IN WHICH ITS LOADED MATTERS
+    all_sprites.draw(WIN)
 
     pygame.display.update()
+
 
 def move_ship(): #function to move the ship
     global projectiles
@@ -86,6 +95,8 @@ def move_ship(): #function to move the ship
             if event.type == pygame.QUIT:
                 run = False
     pygame.quit()
+
+
 
 # def shoot():
 #     X_MISSILE = 100
@@ -119,7 +130,8 @@ def main():
                 run = False
 
         draw_window()#calls function from line 10
-        move_ship()
+        all_sprites.update()
+        #move_ship()
 
         # shoot()
     pygame.quit()
