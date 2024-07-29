@@ -58,17 +58,30 @@ class ship(pygame.sprite.Sprite):
             if self.rect.bottom < 0:
                 self.kill()  # Remove the projectile if it goes off-screen
 
-
+width = 50
+height = 50
+color = (0, 0, 255)
 
 class asteroid(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, color, width, height):
+       pygame.sprite.Sprite.__init__(self)
+
+       self.image = pygame.Surface([width, height])
+       self.image.fill(color)
+       self.rect = self.image.get_rect()
+
+    
+
         #Call the parent class constructor
-        pygame.sprite.Sprite.__init__(self)
-        super().__init__() # call the constructor of the parent class to initialize sprite
-        self.image = pygame.image.load(os.path.join('assets', 'images', 'asteroid.png')).convert_alpha() # holds the image of the sprite
-        self.rect = self.image.get_rect #creates a rectangle around the image to represent the 'space' occupied (?)
-        self.rect.center = (400, 300) # sets the initial position to the center of the screen
-        self.speed = 2 # the speed of movement is 2, should be substantially slower than ship
+        # pygame.sprite.Sprite.__init__(self)
+        # super().__init__() # call the constructor of the parent class to initialize sprite
+        # self.image = pygame.image.load(os.path.join('assets', 'images', 'asteroid.png')).convert_alpha() # holds the image of the sprite
+        # self.rect = self.image.get_rect #creates a rectangle around the image to represent the 'space' occupied (?)
+        # self.rect.center = (400, 300) # sets the initial position to the center of the screen
+        # self.speed = 2 # the speed of movement is 2, should be substantially slower than ship
+
+
+
 
 class projectiles(pygame.sprite.Sprite):
     def __init__(self, x, y):
