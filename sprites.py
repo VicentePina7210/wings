@@ -58,16 +58,12 @@ class ship(pygame.sprite.Sprite):
             if self.rect.bottom < 0:
                 self.kill()  # Remove the projectile if it goes off-screen
 
-width = 50
-height = 50
-color = (0, 0, 255)
 
 class asteroid(pygame.sprite.Sprite):
-    def __init__(self, color, width, height):
-       pygame.sprite.Sprite.__init__(self)
+    def __init__(self):
+       pygame.sprite.Sprite.__init__(self,x, y)
 
-       self.image = pygame.Surface([width, height])
-       self.image.fill(color)
+       self.image = pygame.image.load(os.path.join('assets', 'images', 'asteroid.png'))
        self.rect = self.image.get_rect()
 
     

@@ -16,7 +16,7 @@ FPS = 60 #Frames per second, used to control the speed of the game to ensure sam
 
 #Create an instance of the ship class
 player = ship()
-asteroid_objects = asteroid((0,0,255), 50, 50)
+asteroid_objects = asteroid()
 
 #Create sprite group and add the player sprite to it
 all_sprites = pygame.sprite.Group()
