@@ -2,7 +2,7 @@
 import pygame
 import os #this helps us find the path to our assets
 from sprites import ship
-from sprites import asteroid
+from sprites import Asteroid
 from config import *
 
 
@@ -18,21 +18,15 @@ FPS = 60 #Frames per second, used to control the speed of the game to ensure sam
 IMAGE_MISSILE_DEFAULT = pygame.image.load(os.path.join('assets', 'images', 'missile.png'))
 
 MISSILE_DEFAULT = pygame.transform.scale(IMAGE_MISSILE_DEFAULT, (10, 10))
-        
-IMAGE_ASTEROID = os.path.join('assets', 'images', 'asteroid.png')
-
-POSITION_ASTEROID = (600, 400)
-
-HEIGHT_ASTEROID = 50
+    
 #Create an instance of the ship class
 player = ship()
-asteroid_objects = asteroid()
+Asteroid_instance = Asteroid()
 
-asteroid_instance = asteroid(IMAGE_ASTEROID, POSITION_ASTEROID, HEIGHT_ASTEROID)
 #Create sprite group and add the player sprite to it
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
-all_sprites.add(asteroid_instance)
+all_sprites.add(Asteroid_instance)
 #Create the player
 IMAGE_PLAYER_SHIP = pygame.image.load(
     os.path.join('assets', 'images', 'ship.png'))#using this syntax and importing os, our assets can load on any OS b/c path directories may differ
@@ -67,9 +61,7 @@ def main():
         all_sprites.update()
         draw_window()#calls function from line 10
         
-        #move_ship()
 
-        # shoot()
     pygame.quit()
 
 
