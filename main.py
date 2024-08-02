@@ -26,6 +26,7 @@ POSITION_ASTEROID = (600, 400)
 HEIGHT_ASTEROID = 50
 #Create an instance of the ship class
 player = ship()
+asteroid_objects = asteroid()
 
 asteroid_instance = asteroid(IMAGE_ASTEROID, POSITION_ASTEROID, HEIGHT_ASTEROID)
 #Create sprite group and add the player sprite to it
