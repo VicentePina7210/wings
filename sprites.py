@@ -58,17 +58,31 @@ class ship(pygame.sprite.Sprite):
             if self.rect.bottom < 0:
                 self.kill()  # Remove the projectile if it goes off-screen
 
-width = 50
-height = 50
-color = (0, 0, 255)
+
 
 class asteroid(pygame.sprite.Sprite):
-    def __init__(self, color, width, height):
-       pygame.sprite.Sprite.__init__(self)
+    def __init__(self, IMAGE_ASTEROID, POSITION_ASTEROID):
+        super().__init__()  # Call the parent class constructor
 
-       self.image = pygame.Surface([width, height])
-       self.image.fill(color)
-       self.rect = self.image.get_rect()
+
+        # Load the image
+        self.image = pygame.image.load(IMAGE_ASTEROID).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (50, 50))  # Scale the image if needed
+
+        # Create a rectangle around the image
+        self.rect = self.image.get_rect()
+        self.rect.center = POSITION_ASTEROID  # Set the initial position
+
+        # Additional variables can be added here
+        self.speed = 2  # Example variable for speed
+
+    def update(self):
+        # Update logic for the asteroid
+        self.rect.y += self.speed  # Move the asteroid downwards
+        if self.rect.top > 600:  # Reset position if it moves off screen
+            self.rect.bottom = 0
+       
+
 
     
 
@@ -95,5 +109,3 @@ class projectiles(pygame.sprite.Sprite):
         self.rect.x += 5  # Move the projectile up
         if self.rect.left > WIDTH:
             self.kill()  # Remove the projectile if it goes off-screen
-
-
