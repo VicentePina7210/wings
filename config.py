@@ -7,6 +7,10 @@ IMAGE_MISSILE_DEFAULT = pygame.image.load(os.path.join('assets', 'images', 'miss
 MISSILE_DEFAULT = pygame.transform.scale(IMAGE_MISSILE_DEFAULT, (20, 20))
 MISSILE_DEFAULT = pygame.transform.rotate(MISSILE_DEFAULT, -90)
 IMAGE_ASTEROID = os.path.join('assets', 'images', 'asteroid.png')
+IMAGE_EXPLOSION = pygame.image.load(os.path.join('assets', 'images', 'explosion.png'))
+IMAGE_EXPLOSION = pygame.transform.scale(IMAGE_EXPLOSION, (75, 75))
+SPACE_SHIP_WIDTH = 75
+SPACE_SHIP_HEIGHT = 75
 
 
 # Establish height and width of game window

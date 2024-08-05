@@ -1,43 +1,29 @@
 #the start of the wings project
 import pygame
 import os #this helps us find the path to our assets
-from sprites import ship
-from sprites import Asteroid
+from sprites import *
 from config import *
-
+from events import Collision
 
 pygame.display.set_caption("Wings") #Sets the title for the open window
 
-SPACE_SHIP_WIDTH = 75
-SPACE_SHIP_HEIGHT = 75
-
 WHITE = (255, 255, 255) #RGB color code for white, used in line 18
-FPS = 60 #Frames per second, used to control the speed of the game to ensure same speed across machines
-
-#assigning assests to variables
-IMAGE_MISSILE_DEFAULT = pygame.image.load(os.path.join('assets', 'images', 'missile.png'))
-
-MISSILE_DEFAULT = pygame.transform.scale(IMAGE_MISSILE_DEFAULT, (10, 10))
+FPS = 60 #Frames per second, used to control the speed of the game to ensure same speed across machine
     
 #Create an instance of the ship class
-player = ship()
+player = Ship()
 Asteroid_instance = Asteroid()
+
 
 #Create sprite group and add the player sprite to it
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
 all_sprites.add(Asteroid_instance)
-#Create the player
-IMAGE_PLAYER_SHIP = pygame.image.load(
-    os.path.join('assets', 'images', 'ship.png'))#using this syntax and importing os, our assets can load on any OS b/c path directories may differ
 
-PLAYER_SHIP = pygame.transform.rotate(pygame.transform.scale(
-    IMAGE_PLAYER_SHIP, (SPACE_SHIP_WIDTH, SPACE_SHIP_HEIGHT)), 270) #rotates the image to the right and scales down
+projectile_sprites = pygame.sprite.Group()
 
-
-
-projectiles_tracker = []
-#Creating methods
+Projectiles_instance = Projectiles()
+projectile_sprites.add(Projectiles_instance)
 
 #Draw onto screen
 def draw_window():
@@ -45,8 +31,6 @@ def draw_window():
     #WIN.blit(PLAYER_SHIP, (100,300)) #loads our ship onto the screen. THE ODRER IN WHICH ITS LOADED MATTERS
     all_sprites.draw(WIN)
     player.projectiles.draw(WIN) # testing code
-
-
     pygame.display.update()
 
 def main():
@@ -60,6 +44,7 @@ def main():
 
         all_sprites.update()
         draw_window()#calls function from line 10
+        Collision(player, Asteroid_instance, Projectiles_instance)
         
 
     pygame.quit()
