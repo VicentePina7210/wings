@@ -4,6 +4,20 @@ from config import *
 import time
 import random
 
+class Projectiles(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        super().__init__()
+        self.image = MISSILE_DEFAULT
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def update(self):
+        self.rect.x += 5  # Move the projectile up
+        if self.rect.left > WIDTH:
+            self.kill()  # Remove the projectile if it goes off-screen
+
 class Ship(pygame.sprite.Sprite):
     def __init__(self):
         #Call the parent class constructor
@@ -43,25 +57,6 @@ class Ship(pygame.sprite.Sprite):
     def shoot(self):
         missile = Projectiles(self.rect.centerx, self.rect.top)
         self.projectiles.add(missile)
-    
-    # def ship_collision(self.ship.rect)
-
-    # class Projectiles(pygame.sprite.Sprite):
-    #     def __init__(self, x, y=0):
-    #         super().__init__()
-    #         self.x = x
-    #         self.y = y
-    #         self.image = MISSILE_DEFAULT
-    #         self.rect = self.image.get_rect()
-    #         self.rect.x = x
-    #         self.rect.y = y
-    #         self.speed = 4
-
-    #     def update(self):
-    #         self.rect.x += 4  # Move the projectile up
-    #         if self.rect.bottom < 0:
-    #             self.kill()  # Remove the projectile if it goes off-screen
-
 
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self):
@@ -74,8 +69,8 @@ class Asteroid(pygame.sprite.Sprite):
         self.rect.center = (600, 300)
         self.last_update = pygame.time.get_ticks()  # track the time since last shot
         self.update_delay = 0  # time between movements in milliseconds
-        self.update_x = 1  # make these instance variables
-        self.update_y = 1  # make these instance variables
+        self.update_x = 0  # make these instance variables
+        self.update_y = 0  # make these instance variables
 
     def update(self):
         now = pygame.time.get_ticks()
@@ -100,16 +95,5 @@ class Asteroid(pygame.sprite.Sprite):
 
 
 
-class Projectiles(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        pygame.sprite.Sprite.__init__(self)
-        super().__init__()
-        self.image = MISSILE_DEFAULT
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
 
-    def update(self):
-        self.rect.x += 5  # Move the projectile up
-        if self.rect.left > WIDTH:
-            self.kill()  # Remove the projectile if it goes off-screen
+        
