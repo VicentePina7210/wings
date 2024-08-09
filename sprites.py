@@ -57,6 +57,7 @@ class Ship(pygame.sprite.Sprite):
     def shoot(self):
         missile = Projectiles(self.rect.centerx, self.rect.top)
         self.projectiles.add(missile)
+        
 
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self):

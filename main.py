@@ -3,7 +3,7 @@ import pygame
 import os #this helps us find the path to our assets
 from sprites import *
 from config import *
-from events import Collision
+from events import Collision, Projectile_collision
 
 pygame.display.set_caption("Wings") #Sets the title for the open window
 
@@ -13,13 +13,11 @@ FPS = 60 #Frames per second, used to control the speed of the game to ensure sam
 #Create an instance of the ship class
 player = Ship()
 Asteroid_instance = Asteroid()
-Projectiles_instance = Projectiles(x=player.rect.centerx, y=player.rect.top)
 
 #Create sprite group and add the player sprite to it
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
 all_sprites.add(Asteroid_instance)
-all_sprites.add(Projectiles_instance)
 
 #Draw onto screen
 def draw_window():
@@ -40,7 +38,9 @@ def main():
 
         all_sprites.update()
         draw_window()#calls function from line 10
-        Collision(player, Asteroid_instance, Projectiles_instance)
+        Collision(player, Asteroid_instance)
+        Projectile_collision(player, Asteroid_instance)
+
         
 
     pygame.quit()

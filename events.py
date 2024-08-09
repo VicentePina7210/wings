@@ -2,12 +2,20 @@ import pygame
 from sprites import *
 from config import *
 
-def Collision(Ship, Asteroid, Projectiles):
+def Collision(Ship, Asteroid):
     if Ship.rect.colliderect(Asteroid.rect):
         Ship.image = IMAGE_EXPLOSION
-    if Projectiles.rect.colliderect(Asteroid.rect):
-        Asteroid.image = IMAGE_EXPLOSION
-        print("Collision detected")
+
+
+def Projectile_collision(self, Asteroid):
+        # Check for collisions between projectiles and the target rectangle
+     for projectile in self.projectiles:
+         if projectile.rect.colliderect(Asteroid.rect):
+             projectile.kill()  # Remove the projectile if it collides
+             Asteroid.image = IMAGE_EXPLOSION
+             return True  # Collision detected
+     return False  # No collision detected
+    
 
 
 
