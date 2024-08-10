@@ -13,6 +13,7 @@ def Projectile_collision(self, Asteroid):
          if projectile.rect.colliderect(Asteroid.rect):
              projectile.kill()  # Remove the projectile if it collides
              Asteroid.image = IMAGE_EXPLOSION
+             Asteroid.explosion_timer = pygame.time.get_ticks()  # Start explosion timer to limit duration of explosion
              return True  # Collision detected
      return False  # No collision detected
     

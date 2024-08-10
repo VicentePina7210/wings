@@ -27,7 +27,7 @@ class Ship(pygame.sprite.Sprite):
         self.image = pygame.transform.rotate(pygame.transform.scale(self.image, (75, 75)), 270)
         self.rect = self.image.get_rect() #creates a rectangle around the image to represent the 'space' occupied (?)
         self.rect.center = (400, 300) # sets the initial position to the center of the screen
-        self.speed = 5 # the speed of movement so currently 5 pixels per update? may need to be fixed
+        self.speed = 3 # the speed of movement so currently 3 pixels per update? may need to be fixed
         self.projectiles = pygame.sprite.Group()
         self.last_shot_time = 0 # track the time since last shot
         self.shoot_cooldown = 0.2
@@ -72,9 +72,16 @@ class Asteroid(pygame.sprite.Sprite):
         self.update_delay = 0  # time between movements in milliseconds
         self.update_x = 0  # make these instance variables
         self.update_y = 0  # make these instance variables
+        self.explosion_timer = None
 
     def update(self):
         now = pygame.time.get_ticks()
+
+        if self.explosion_timer:
+            # If explosion timer is set, check if 500ms have passed
+            if pygame.time.get_ticks() - self.explosion_timer >= 500:
+                self.kill()  # Remove the asteroid after 500ms
+        
         if now - self.last_update > self.update_delay:  
             self.rect.x += self.update_x
             self.rect.y += self.update_y
