@@ -67,16 +67,15 @@ class Asteroid(pygame.sprite.Sprite):
         self.image = pygame.image.load(os.path.join('assets', 'images', 'asteroid.png')).convert_alpha()  # holds the image of the sprite
         self.image = pygame.transform.rotate(pygame.transform.scale(self.image, (75, 75)), 270)
         self.rect = self.image.get_rect()
-        self.rect.center = (600, 300)
+        self.rect.center = (800, 300)
         self.last_update = pygame.time.get_ticks()  # track the time since last shot
         self.update_delay = 0  # time between movements in milliseconds
         self.update_x = 0  # make these instance variables
         self.update_y = 0  # make these instance variables
-        self.explosion_timer = None
+        self.explosion_timer = 0
 
     def update(self):
         now = pygame.time.get_ticks()
-
         if self.explosion_timer:
             # If explosion timer is set, check if 500ms have passed
             if pygame.time.get_ticks() - self.explosion_timer >= 500:
