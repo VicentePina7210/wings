@@ -1,0 +1,222 @@
+[33mcommit c870362289f38e34e432403729fef9354a4fee2b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Aug 23 21:11:42 2024 -0500
+
+    Scrolling background has been implemented.
+    -create function for it
+    Problems:
+    Asteroid hitbox remains after Asteroid is gone
+
+[33mcommit 73d992fd936942799ccf20f4e365a32060cdab3d[m
+Author: Roy <roywmraziv@icloud.com>
+Date:   Sat Aug 10 15:33:09 2024 -0500
+
+    Updated collision event
+    
+    - updated collision event so that asteroid disappears
+    - added env to .gitignore
+
+[33mcommit 05f00546a35a8813b4fb9ad293f7fd78ef17c464[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Aug 9 08:45:11 2024 -0500
+
+    collision works
+
+[33mcommit 85a93635ea0ec7f924407847d062e191c963422c[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Wed Aug 7 09:17:55 2024 -0500
+
+    Finally figured out some of the projectile collision bug, needs a bit more work but it is getting there
+
+[33mcommit a7dba7cd2b7c11b3256ee2f619e10ca025a4d156[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Mon Aug 5 12:25:23 2024 -0500
+
+    Working on collision detection
+
+[33mcommit b3c404d8239873cf3c2f7ce4225ca7956b4457f9[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Aug 2 15:02:31 2024 -0500
+
+    changes to the asteroid
+
+[33mcommit 2c90c87af6305bc950a1b0cf4d8038cfdba39d54[m
+Merge: 249f691 7833466
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Aug 2 13:31:48 2024 -0500
+
+    Merge branch 'main' of https://github.com/VicentePina7210/wings
+
+[33mcommit 249f691be596cc2004c9daabcecf105a7595329f[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Aug 2 13:29:57 2024 -0500
+
+    working on sprites
+
+[33mcommit 78334667e2bc2c74beadd244f404b0a7911f9799[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Mon Jul 29 23:19:19 2024 -0500
+
+    working on asteroid sprite class
+
+[33mcommit b3c183e3c69851924c509c88bad88b055cd9be00[m
+Author: Vicentepina7210 <vpina3210@gmail.com>
+Date:   Sun Jul 28 20:49:43 2024 -0500
+
+    drew the asteriod onto the screen
+    still needs work but will fix soon
+
+[33mcommit 5caf24911b6b8f668e86cb163de451587b83ffd0[m
+Author: Roy <roywmraziv@icloud.com>
+Date:   Fri Jul 26 13:16:00 2024 -0500
+
+    Modified Shoot method and cleanup
+    
+    integrated shoot method into ship class as well as created projectile class inside ship class
+    
+    also cleaned up code
+
+[33mcommit b44000b5274f72b5a7a10a3140513e22d30ebdc8[m
+Author: Roy <roywmraziv@icloud.com>
+Date:   Sun Jul 21 16:41:46 2024 -0500
+
+    Initializes ship sprite and movement
+    
+    -created new file called config.py to save constants since constants will need to be used in multiple files and circular imports don't work
+    
+    -initialized the ship class as player and draws the player (the ship) on the screen
+    
+    -gave movement to the ship using modified code taken from the main that also prevents ship from leaving the screen
+    
+    -future code for movement may be moved into the appropriate classes
+
+[33mcommit 30b48f93ddca4b9b67de642df8f6628c6ff43399[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Jul 19 14:51:30 2024 -0500
+
+    push
+
+[33mcommit a5422b68833ba71442eb84934ec087833bc2cd2a[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Jul 19 13:39:16 2024 -0500
+
+    working on shooting missiles
+
+[33mcommit 0d7b9d2ce3bcb4e05bdc9ac88f8837152a6318ad[m
+Merge: 88e47a3 05fdaea
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Jul 19 13:39:10 2024 -0500
+
+    Merge branch 'main' of https://github.com/VicentePina7210/wings
+
+[33mcommit 88e47a3cdd47821b1b599ad1a725f714c951f4db[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Jul 19 13:34:32 2024 -0500
+
+    created a function to shoot projectils, still needs a lot of work
+
+[33mcommit 05fdaea055a7f7eb934edcf856577d122ad2c351[m
+Merge: 3aedb54 105e24e
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Jul 19 08:19:43 2024 -0500
+
+    Merge branch 'main' of https://github.com/VicentePina7210/wings
+
+[33mcommit 3aedb547a1293e33886408e1d9a5be3c3afd292e[m
+Author: VicentePina7210 <vpina3210@gmail.com>
+Date:   Fri Jul 19 08:18:50 2024 -0500
+
+    test push
+
+[33mcommit 105e24e4545c17c49b9b3e2971837989e19579bc[m
+Author: Vicente Pina <117295444+VicentePina7210@users.noreply.github.com>
+Date:   Thu Jul 18 16:53:56 2024 -0500
+
+    Update main.py
+    
+    creating missile and missile shooting function in
+
+[33mcommit 95d0017dedf8897cbd3adcefc8f46088e692ec55[m
+Author: Vicentepina7210 <vpina3210@gmail.com>
+Date:   Wed Jul 17 00:16:32 2024 -0500
+
+    We finally have control to move the ship !!
+
+[33mcommit 3916e7e9e614de8b3d775060513145811546a5cd[m
+Author: Roy <roywmraziv@icloud.com>
+Date:   Sun Jul 14 20:18:22 2024 -0500
+
+    Add background image and create asteroid sprite
+    
+    added a couple image files and started creation of asteroid sprite
+
+[33mcommit ddc2d40ca804079d81d48353178299d7189b7d06[m
+Merge: 8b89325 9438fbe
+Author: Roy <134985494+roywmraziv@users.noreply.github.com>
+Date:   Sun Jul 14 19:24:23 2024 -0500
+
+    Merge pull request #1 from VicentePina7210/proposed-changes-sprites.py
+    
+    These are some suggestions I have for reformatting the syntax in your file
+
+[33mcommit 8b893251f7aa9b6f928eda8f5717a2bccc0f0c90[m
+Author: Vicentepina7210 <vpina3210@gmail.com>
+Date:   Thu Jul 11 21:39:58 2024 -0500
+
+    Drew the image onto the screen, resized and rotated it as well.
+
+[33mcommit 9438fbe699f5aeb4b11c5579cd65dba937f12e26[m
+Author: Vicentepina7210 <vpina3210@gmail.com>
+Date:   Thu Jul 11 21:32:43 2024 -0500
+
+    These are some suggestions I have for reformatting the syntax in your file.
+
+[33mcommit dbd1d49b336538a1f6c17ef77026b1f1623d7aeb[m
+Author: Roy <roywmraziv@icloud.com>
+Date:   Tue Jul 9 20:26:06 2024 -0500
+
+    Intial Sprite Creation
+    
+    created assets file for images and sounds
+    
+    created sprites.py file to contain sprites
+    
+    started creation of ship class that inherits from pygame.sprite.Sprite
+
+[33mcommit efa12ca8791fb90e95825ce040b3f50c7ef6094d[m
+Author: Vicentepina7210 <vpina3210@gmail.com>
+Date:   Sun Jul 7 22:16:05 2024 -0500
+
+    Created the main function to run the game window. Added plenty of comments for clarity
+
+[33mcommit 7119d9ff93c029d983eb3e3c5212f660c9d5bfed[m
+Author: Roy <roywmraziv@icloud.com>
+Date:   Sun Jul 7 18:17:41 2024 -0500
+
+    created project virtual environment
+    
+    Created virtual environment in project folder and installed pygame.
+
+[33mcommit a63b6bb12f4c89163aa79c99d5b9b8a7d188377f[m
+Author: Vicente Pina <117295444+VicentePina7210@users.noreply.github.com>
+Date:   Sun Jul 7 16:42:22 2024 -0500
+
+    Update README.md
+
+[33mcommit 879320956351479cd31ae9f848fd98137cee0e14[m
+Author: Vicentepina7210 <vpina3210@gmail.com>
+Date:   Sun Jul 7 16:41:09 2024 -0500
+
+    Created the first file for Wings
+
+[33mcommit a97c2681a10e125f39f60e7827550ee78266a2ec[m
+Author: Vicente Pina <117295444+VicentePina7210@users.noreply.github.com>
+Date:   Sun Jul 7 16:38:35 2024 -0500
+
+    Update README.md
+
+[33mcommit 0a9bea9d8eb87bd81cc18affea8624d748003d6b[m
+Author: Vicente Pina <117295444+VicentePina7210@users.noreply.github.com>
+Date:   Sun Jul 7 16:38:21 2024 -0500
+
+    Initial commit
