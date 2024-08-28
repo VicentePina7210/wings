@@ -2,21 +2,39 @@ import pygame
 import os
 from config import *
 import time
-import random
 
 class Projectiles(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, img):
         pygame.sprite.Sprite.__init__(self)
         super().__init__()
-        self.image = MISSILE_DEFAULT
-        self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.img = img
+        self.mask = pygame.mask.from_surface(self.img)
+
+    def draw(self,window):
+        window.blit(self.img, (self.x, self.y))
+
+    def move(self, vel):
+        self.y += vel
+
+    def off_screen(self, height):
+        return self.y <= height and self.y >=0
+    
+    def collision(self, obj):
+        return collide(obj, self)
+    
 
     def update(self):
         self.rect.x += 5  # Move the projectile up
         if self.rect.left > WIDTH:
             self.kill()  # Remove the projectile if it goes off-screen
+
+def collide(obj1, obj2 ):
+    offset_x = obj2.x - obj1.x
+    offset_y = obj2.y - obj1.y
+    return obj1.mask.overlap(obj2,(offset_x, offset_y)) != None
+
 
 class Ship(pygame.sprite.Sprite):
     def __init__(self):
@@ -28,9 +46,9 @@ class Ship(pygame.sprite.Sprite):
         self.rect = self.image.get_rect() #creates a rectangle around the image to represent the 'space' occupied (?)
         self.rect.center = (400, 300) # sets the initial position to the center of the screen
         self.speed = 3 # the speed of movement so currently 3 pixels per update? may need to be fixed
-        self.projectiles = pygame.sprite.Group()
+        self.projectiles = []
         self.last_shot_time = 0 # track the time since last shot
-        self.shoot_cooldown = 0.2
+        self.shoot_cooldown = .2
         
 
 
@@ -55,31 +73,32 @@ class Ship(pygame.sprite.Sprite):
         self.projectiles.update()
    
     def shoot(self):
-        missile = Projectiles(self.rect.centerx, self.rect.top)
+        missile = Projectiles(x, y, self.missile_img)
         self.projectiles.add(missile)
         
+player_instance = Ship()
+player = pygame.sprite.Group()
+player.add(player_instance)
 
 class Asteroid(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, x, y):
         # Call the parent class constructor
         pygame.sprite.Sprite.__init__(self)
         super().__init__()  # call the constructor of the parent class to initialize sprite
         self.image = pygame.image.load(os.path.join('assets', 'images', 'asteroid.png')).convert_alpha()  # holds the image of the sprite
         self.image = pygame.transform.rotate(pygame.transform.scale(self.image, (75, 75)), 270)
         self.rect = self.image.get_rect()
-        self.rect.center = (800, 300)
+        self.rect.center = (x, y)
         self.last_update = pygame.time.get_ticks()  # track the time since last shot
         self.update_delay = 0  # time between movements in milliseconds
         self.update_x = 0  # make these instance variables
         self.update_y = 0  # make these instance variables
-        self.explosion_timer = 0
+        self.explosion_timer = None
 
     def update(self):
         now = pygame.time.get_ticks()
-        if self.explosion_timer:
-            # If explosion timer is set, check if 500ms have passed
-            if pygame.time.get_ticks() - self.explosion_timer >= 500:
-                self.kill()  # Remove the asteroid after 500ms
+        if asteroid_instance.rect.colliderect(player_instance):
+            self.kill()
         
         if now - self.last_update > self.update_delay:  
             self.rect.x += self.update_x
@@ -97,7 +116,11 @@ class Asteroid(pygame.sprite.Sprite):
             self.update_x = -1  # move left
             #move the self rect x and y into variables outside the update fuinction
 
-    
+asteroid_instance = Asteroid(800, 300)
+asteroids = pygame.sprite.Group()
+asteroids.add(asteroid_instance)
+
+
 
 
 
