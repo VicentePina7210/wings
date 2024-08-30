@@ -12,6 +12,9 @@ IMAGE_EXPLOSION = pygame.transform.scale(IMAGE_EXPLOSION, (75, 75))
 SPACE_SHIP_WIDTH = 75
 SPACE_SHIP_HEIGHT = 75
 
+
+
+
 background_image = pygame.image.load(os.path.join('assets', 'images', 'background.png'))
 background_image = pygame.transform.scale(background_image,(400,600))
 

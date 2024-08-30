@@ -13,8 +13,9 @@ FPS = 60 #Frames per second, used to control the speed of the game to ensure sam
 
 #Create sprite group and add the player sprite to it
 all_sprites = pygame.sprite.Group()
-all_sprites.add(player)
+# all_sprites.add(player)
 all_sprites.add(asteroid_instance)
+
 
 background_width = background_image.get_width()
 
@@ -38,7 +39,7 @@ def draw_window():
     # WIN.fill(WHITE)
     #WIN.blit(PLAYER_SHIP, (100,300)) #loads our ship onto the screen. THE ODRER IN WHICH ITS LOADED MATTERS
     all_sprites.draw(WIN)
-    player.projectiles.draw(WIN) # testing code
+    # player.projectiles.draw(WIN) # testing code
     pygame.display.update()
 
 def main():
@@ -63,12 +64,11 @@ def main():
         # Collision(player, asteroid_instance)
         # Projectile_collision(player, asteroid_instance)
 
-
-        asteroids.draw(WIN)
-        asteroids.update()
-        player.draw(WIN)
-        player.update()
-
+        player_instance.draw(WIN)
+        # asteroids.draw(WIN)
+        # asteroids.update()
+        # player.draw(WIN)
+        # player.update()
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_p]:

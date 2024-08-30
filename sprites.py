@@ -36,20 +36,33 @@ def collide(obj1, obj2 ):
     return obj1.mask.overlap(obj2,(offset_x, offset_y)) != None
 
 
-class Ship(pygame.sprite.Sprite):
-    def __init__(self):
-        #Call the parent class constructor
-        pygame.sprite.Sprite.__init__(self)
-        super().__init__() # call the constructor of the parent class to initialize sprite
-        self.image = pygame.image.load(os.path.join('assets', 'images', 'ship.png')).convert_alpha() # holds the image of the sprite
-        self.image = pygame.transform.rotate(pygame.transform.scale(self.image, (75, 75)), 270)
-        self.rect = self.image.get_rect() #creates a rectangle around the image to represent the 'space' occupied (?)
-        self.rect.center = (400, 300) # sets the initial position to the center of the screen
-        self.speed = 3 # the speed of movement so currently 3 pixels per update? may need to be fixed
-        self.projectiles = []
-        self.last_shot_time = 0 # track the time since last shot
-        self.shoot_cooldown = .2
+# class Ship(pygame.sprite.Sprite):
+#     def __init__(self):
+#         #Call the parent class constructor
+#         pygame.sprite.Sprite.__init__(self)
+#         super().__init__() # call the constructor of the parent class to initialize sprite
+#         self.image = pygame.image.load(os.path.join('assets', 'images', 'ship.png')).convert_alpha() # holds the image of the sprite
+#         self.image = pygame.transform.rotate(pygame.transform.scale(self.image, (75, 75)), 270)
+#         self.rect = self.image.get_rect() #creates a rectangle around the image to represent the 'space' occupied (?)
+#         self.rect.center = (400, 300) # sets the initial position to the center of the screen
+#         self.speed = 3 # the speed of movement so currently 3 pixels per update? may need to be fixed
+#         self.projectiles = []
+#         self.last_shot_time = 0 # track the time since last shot
+#         self.shoot_cooldown = .2
         
+
+class Ship:
+    def __init__ (self, x, y, health = 100):
+        self.x = x
+        self.y = y 
+        self.health = health
+        self.ship_img = None
+        self.missile_img = None
+        self.missiles = []
+        self.cooldown = 0
+    
+    def draw(self, WIN):
+        WIN.blit(self.ship_img, (self.x, self.y))
 
 
     def handle_keys(self):
@@ -75,10 +88,19 @@ class Ship(pygame.sprite.Sprite):
     def shoot(self):
         missile = Projectiles(x, y, self.missile_img)
         self.projectiles.add(missile)
-        
-player_instance = Ship()
-player = pygame.sprite.Group()
-player.add(player_instance)
+
+def Player(Ship):
+    def __init__(self,x,y, health = 100):
+        super().__init__(x, y, health)
+        self.ship_img = pygame.image.load(os.path.join('assets', 'images', 'ship.png')).convert_alpha()
+        self.ship_img = pygame.transform.rotate(pygame.transform.scale(PLAYER_SHIP, (75, 75)), 270)
+        self.missile_img = MISSILE_DEFAULT
+        self.mask = pygame.mask.from_surface(self.ship_img)
+        self.max_health = health
+
+player_instance = Player(300)
+# player = pygame.sprite.Group()
+# player.add(player_instance)
 
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self, x, y):
