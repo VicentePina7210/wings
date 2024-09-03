@@ -60,21 +60,22 @@ class Ship:
         self.missile_img = None
         self.missiles = []
         self.cooldown = 0
+        self.speed = 5
     
-    def draw(self, WIN):
-        WIN.blit(self.ship_img, (self.x, self.y))
+    def draw(self, window):
+        window.blit(self.ship_img, (self.x, self.y))
 
 
     def handle_keys(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_w] and self.rect.top > 0:
-            self.rect.y -= self.speed
-        if keys[pygame.K_s] and self.rect.bottom < HEIGHT:
-            self.rect.y += self.speed
-        if keys[pygame.K_a] and self.rect.left > 0:
-            self.rect.x -= self.speed
-        if keys[pygame.K_d] and self.rect.right < WIDTH:
-            self.rect.x += self.speed
+        if keys[pygame.K_w] and self.ship_img > 0:
+            self.y -= self.speed
+        if keys[pygame.K_s] and self.ship_img < HEIGHT:
+            self.y += self.speed
+        if keys[pygame.K_a] and self.ship_img > 0:
+            self.x -= self.speed
+        if keys[pygame.K_d] and self.ship_img < WIDTH:
+            self.x += self.speed
 
         current_time = time.time()
         if keys[pygame.K_SPACE] and current_time - self.last_shot_time > self.shoot_cooldown:
@@ -83,22 +84,22 @@ class Ship:
     
     def update(self):
         self.handle_keys()
-        self.projectiles.update()
+    #     self.projectiles.update()
    
-    def shoot(self):
-        missile = Projectiles(x, y, self.missile_img)
-        self.projectiles.add(missile)
+    # def shoot(self):
+    #     missile = Projectiles(x, y, self.missile_img)
+    #     self.projectiles.add(missile)
 
-def Player(Ship):
+class Player(Ship):
     def __init__(self,x,y, health = 100):
         super().__init__(x, y, health)
-        self.ship_img = pygame.image.load(os.path.join('assets', 'images', 'ship.png')).convert_alpha()
-        self.ship_img = pygame.transform.rotate(pygame.transform.scale(PLAYER_SHIP, (75, 75)), 270)
+        self.ship_img = PLAYER_SHIP
         self.missile_img = MISSILE_DEFAULT
         self.mask = pygame.mask.from_surface(self.ship_img)
         self.max_health = health
+        self.speed = 5
 
-player_instance = Player(300)
+player_instance = Player(300, 300)
 # player = pygame.sprite.Group()
 # player.add(player_instance)
 

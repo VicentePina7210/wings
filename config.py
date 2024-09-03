@@ -11,6 +11,9 @@ IMAGE_EXPLOSION = pygame.image.load(os.path.join('assets', 'images', 'explosion.
 IMAGE_EXPLOSION = pygame.transform.scale(IMAGE_EXPLOSION, (75, 75))
 SPACE_SHIP_WIDTH = 75
 SPACE_SHIP_HEIGHT = 75
+IMAGE_SHIP_DEFAULT = pygame.image.load(os.path.join('assets', 'images', 'ship.png'))
+PLAYER_SHIP = pygame.transform.scale(IMAGE_SHIP_DEFAULT, (70,70))
+PLAYER_SHIP = pygame.transform.rotate(PLAYER_SHIP, -90)
 
 
 
