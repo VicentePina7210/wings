@@ -3,32 +3,31 @@ import os
 from config import *
 import time
 
-class Projectiles(pygame.sprite.Sprite):
+
+class Projectiles:
     def __init__(self, x, y, img):
-        pygame.sprite.Sprite.__init__(self)
-        super().__init__()
-        self.rect.x = x
-        self.rect.y = y
+        self.x = x
+        self.y = y
         self.img = img
         self.mask = pygame.mask.from_surface(self.img)
 
     def draw(self,window):
         window.blit(self.img, (self.x, self.y))
 
-    def move(self, vel):
-        self.y += vel
+    def move(self, speed):
+        self.x += speed
 
-    def off_screen(self, height):
-        return self.y <= height and self.y >=0
+    def off_screen(self, width):
+        return not(self.y <= width and self.y >=0)
     
     def collision(self, obj):
         return collide(obj, self)
     
 
-    def update(self):
-        self.rect.x += 5  # Move the projectile up
-        if self.rect.left > WIDTH:
-            self.kill()  # Remove the projectile if it goes off-screen
+    # def update(self):
+    #     self.rect.x += 5  # Move the projectile up
+    #     if self.rect.left > WIDTH:
+    #         self.kill()  # Remove the projectile if it goes off-screen
 
 def collide(obj1, obj2 ):
     offset_x = obj2.x - obj1.x
@@ -52,6 +51,8 @@ def collide(obj1, obj2 ):
         
 
 class Ship:
+    COOLDOWN = 30
+
     def __init__ (self, x, y, health = 100):
         self.x = x
         self.y = y 
@@ -59,31 +60,42 @@ class Ship:
         self.ship_img = None
         self.missile_img = None
         self.missiles = []
-        self.cooldown = 0
-        self.speed = 5
+        self.cool_down_counter = 0
     
     def draw(self, window):
         window.blit(self.ship_img, (self.x, self.y))
+        for missile in self.missiles:
+            missile.draw(window)
 
+    def move_missiles(self, speed, obj):
+        self.cooldown()
+        for missile in self.missiles:
+            missile.move(speed)
+            if missile.off_screen(WIDTH):
+                self.missiles.remove(missile)
+            elif missile.collision(obj):
+                obj.health -= 10
+                self.missiles.remove(missile)
 
-    def handle_keys(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_w] and self.ship_img > 0:
-            self.y -= self.speed
-        if keys[pygame.K_s] and self.ship_img < HEIGHT:
-            self.y += self.speed
-        if keys[pygame.K_a] and self.ship_img > 0:
-            self.x -= self.speed
-        if keys[pygame.K_d] and self.ship_img < WIDTH:
-            self.x += self.speed
+    def cooldown(self):
+        if self.cool_down_counter >= self.COOLDOWN:
+            self.cool_down_counter = 0
+        elif self.cool_down_counter > 0:
+            self.cool_down_counter += 1
 
-        current_time = time.time()
-        if keys[pygame.K_SPACE] and current_time - self.last_shot_time > self.shoot_cooldown:
-            self.shoot()
-            self.last_shot_time = current_time
+    def shoot(self):
+        if self.cool_down_counter == 0:
+            missile = Projectiles(self.x, self.y, self.missile_img)
+            self.missiles.append(missile)
+            self.cool_down_counter = 1
     
-    def update(self):
-        self.handle_keys()
+    def get_width(self):
+        return self.ship_img.get_width()
+    
+    def get_height(self):
+        return self.ship_img.get_height()
+
+
     #     self.projectiles.update()
    
     # def shoot(self):
@@ -98,6 +110,19 @@ class Player(Ship):
         self.mask = pygame.mask.from_surface(self.ship_img)
         self.max_health = health
         self.speed = 5
+
+    def move_missiles(self, speed, objs):
+        self.cooldown()
+        for missile in self.missiles:
+            missile.move(speed)
+            if missile.off_screen(WIDTH):
+                self.missiles.remove(missile)
+            else:
+                for obj in objs:
+                    if missile.collision(obj):
+                        objs.remove(obj)
+                        self.missiles.remove(missile)
+
 
 player_instance = Player(300, 300)
 # player = pygame.sprite.Group()
@@ -120,8 +145,6 @@ class Asteroid(pygame.sprite.Sprite):
 
     def update(self):
         now = pygame.time.get_ticks()
-        if asteroid_instance.rect.colliderect(player_instance):
-            self.kill()
         
         if now - self.last_update > self.update_delay:  
             self.rect.x += self.update_x

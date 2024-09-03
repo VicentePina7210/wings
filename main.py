@@ -46,6 +46,8 @@ def draw_window():
     
     player_instance.draw(WIN)
 
+missile_speed = 2
+
 
 def main():
     global scroll
@@ -65,7 +67,7 @@ def main():
         #     scroll = 0
 
 
-        draw_window()#calls function from line 10
+        draw_window() #calls function from line 10
         # Collision(player, asteroid_instance)
         # Projectile_collision(player, asteroid_instance)
 
@@ -78,30 +80,19 @@ def main():
             player_instance.x -= player_instance.speed
         if keys[pygame.K_d] :
             player_instance.x += player_instance.speed
-
-        current_time = time.time()
-        if keys[pygame.K_SPACE] and current_time - self.last_shot_time > self.shoot_cooldown:
-            self.shoot()
-            self.last_shot_time = current_time
+        if keys[pygame.K_SPACE]:
+             player_instance.shoot()
+             print("space")
         
-        # asteroids.draw(WIN)
-        # asteroids.update()
+        player_instance.move_missiles(missile_speed, asteroid_instance)
+        asteroids.draw(WIN)
+        asteroids.update()
         # player.draw(WIN)
         # player.update()
-
-        
-
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_p]:
-                    asteroid_instance = Asteroid(300,300)
-                    asteroids.add(asteroid_instance)
-                    print("pressed")
             
         pygame.display.flip()
         pygame.display.update()
-        # if asteroid_instance.colliderect()
         
-
     pygame.quit()
 
 
