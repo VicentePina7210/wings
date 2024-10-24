@@ -8,7 +8,7 @@ import time
 import random
 
 
-
+speed = 100
 class Projectiles(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -18,8 +18,8 @@ class Projectiles(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-    def update(self ):
-        self.rect.x += 5  # Move the projectile up
+    def update(self, speed ):
+        self.rect.x += speed  # Projectile speed
         if self.rect.left > WIDTH:
             self.kill()  # Remove the projectile if it goes off-screen
 
@@ -57,7 +57,7 @@ class Ship(pygame.sprite.Sprite):
     
     def update(self):
         self.handle_keys()
-        self.projectiles.update()
+        self.projectiles.update(speed)
    
     def shoot(self):
         missile = Projectiles(self.rect.centerx, self.rect.top)
@@ -65,18 +65,18 @@ class Ship(pygame.sprite.Sprite):
         
 
 class Asteroid(pygame.sprite.Sprite):
-    def __init__(self, x_random):
+    def __init__(self, y_random):
         # Call the parent class constructor
         pygame.sprite.Sprite.__init__(self)
         super().__init__()  # call the constructor of the parent class to initialize sprite
         self.image = pygame.image.load(os.path.join('assets', 'images', 'asteroid.png')).convert_alpha()  # holds the image of the sprite
         self.image = pygame.transform.rotate(pygame.transform.scale(self.image, (75, 75)), 270)
         self.rect = self.image.get_rect()
-        self.rect.center = (800,x_random)
+        self.rect.center = (800,y_random)
         self.last_update = pygame.time.get_ticks()  # track the time since last shot
         self.update_delay = 0  # time between movements in milliseconds
         self.update_x = 0  # make these instance variables
-        self.update_y = 0  # make these instance variables
+        self.update_y = 2  # make these instance variables
         self.explosion_timer = 0
         self.health = 3
 
@@ -97,7 +97,7 @@ class Asteroid(pygame.sprite.Sprite):
             if pygame.time.get_ticks() - self.explosion_timer >= 500:
                 self.kill()  # Remove the asteroid after 500ms
         
-        if now - self.last_update > self.update_delay:  
+        if now > self.update_delay:  
             self.rect.x += self.update_x
             self.rect.y += self.update_y
             self.last_update = now
@@ -139,11 +139,10 @@ scroll = 0
 # Here we create the instance of the asteroid 
 def draw_asteroids():
     if len(asteroid_group) < 1:
-        x_random = random.randint(50, 550)
-        asteroid = Asteroid(x_random)
+        y_random = random.randint(50, 550)
+        asteroid = Asteroid(y_random)    
         asteroid_group.add(asteroid)
         all_sprites.add(asteroid)
-        
 
 
 #Draw onto screen
