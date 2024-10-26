@@ -79,6 +79,8 @@ class Asteroid(pygame.sprite.Sprite):
         self.update_y = 2  # make these instance variables
         self.explosion_timer = 0
         self.health = 3
+        self.rotation_angle = 80
+        self.original_image = self.image.copy()  # Store the original image for rotation
 
     def check_collision(self, other):
         hits = pygame.sprite.spritecollide(self, other, True)  # True removes projectile on collision
@@ -87,6 +89,7 @@ class Asteroid(pygame.sprite.Sprite):
             self.health -= 1
         if self.health == 1:
             self.image = IMAGE_ASTEROID_CRITICAL
+            
         if self.health <= 0:
             self.kill()  # Remove asteroid if hit
 
@@ -102,17 +105,26 @@ class Asteroid(pygame.sprite.Sprite):
             self.rect.y += self.update_y
             self.last_update = now
 
+            if now > self.update_delay:
+                self.rotation_angle += 1  # Adjust the increment value for smoother or faster rotation
+                self.image = pygame.transform.rotate(self.original_image, self.rotation_angle)
+                self.rect = self.image.get_rect(center=self.rect.center)  # Update the rect to the new image size
+                self.update_delay = now  # Reset the delay
+
+        # Ensure the image stays within the screen boundaries
         if self.rect.bottom >= 600:  # assuming screen height is 600
+            self.rect.bottom = 600
             self.update_y *= -1  # reverse direction to move up
         elif self.rect.top <= 0:
+            self.rect.top = 0
             self.update_y *= -1  # reverse direction to move down
 
         if self.rect.left <= 0:
+            self.rect.left = 0
             self.update_x = 1  # move right
         elif self.rect.right >= 800:  # assuming screen width is 800
+            self.rect.right = 800
             self.update_x = -1  # move left
-            #move the self rect x and y into variables outside the update fuinction
-
 
 
 
